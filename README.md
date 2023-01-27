@@ -41,27 +41,98 @@ FIGURE-04
 A Parallel in Parallel out (PIPO) shift register is used as a temporary storage device and like SISO Shift register it acts as a delay element.
 
 ### Procedure
-/* write all the steps invloved */
+
+Step1: Create a new Quartus II project.
+
+Step2: Create a new file in the Quartus II where name of the module is name of the project.
+
+Step3: Declare a function for each logical circuit.
+
+Step4: For each definition give end module.
+
+Step5: Run RTL simulation and timing diagram.
+
+
 
 
 
 ### PROGRAM 
-/*
-Program for  Implementation-of Shift-registers-using-verilog-
-Developed by: 
-RegisterNumber:  
-*/
+
+'''Program for  Implementation-of Shift-registers-using-verilog-
+Developed by: Mathiyazhagan.A
+RegisterNumber:  22005215
+'''
 
 
+SIPO
 
+module sipo(si,clk,po);
+input si,clk;
+output [0:7]po;
+reg [0:7]temp;
+always@(posedge clk)
+begin
+temp = {temp[0:6],si};
+end
+assign po=temp;
+endmodule
+
+
+PISO
+
+
+module sipo(Clk, Parallel_In,load, Serial_Out);
+input Clk,load;
+input [3:0]Parallel_In;
+output reg Serial_Out;
+reg [3:0]tmp;
+always @(posedge Clk)
+begin
+if(load)
+tmp<=Parallel_In;
+else
+begin
+Serial_Out<=tmp[3];
+tmp<={tmp[2:0],1'b0};
+end
+end
+endmodule
+
+
+PIPO
+
+
+module sipo(pi,clk,po);
+input clk;
+input[3:0]pi;
+output reg[3:0]po;
+always@(posedge clk)
+begin
+po = pi;
+end 
+endmodule
 
 
 
 ### RTL LOGIC  REGISTERS   
 
+SIPO
+
+
+![sipo](https://user-images.githubusercontent.com/118787327/215101314-4123f3c9-7b5f-450b-acdb-203fbbbe9194.png)
+
+
+PISO
+
+
+![pico](https://user-images.githubusercontent.com/118787327/215101463-f6c79394-9c9f-495a-99fc-3a6f09c960f7.png)
 
 
 
+PIPO
+
+
+![pipo](https://user-images.githubusercontent.com/118787327/215101572-d2c18bab-0b2b-4208-b2af-e498a04b9e09.png)
 
 
 
@@ -70,10 +141,27 @@ RegisterNumber:
 ### TIMING DIGRAMS FOR SHIFT REGISTERS
 
 
+SIPO
+
+
+<img width="830" alt="sipo1" src="https://user-images.githubusercontent.com/118787327/215101747-ae8714d4-c6c3-48c8-9be4-4ee2c5763d86.png">
 
 
 
+PISO
+
+
+<img width="829" alt="202154246-78fa432f-2841-46f1-b340-1c3ed5e1fcf5" src="https://user-images.githubusercontent.com/118787327/215101922-3a74f38c-1b18-4a8f-92a8-6c4e56d5d661.png">
+
+
+PIPO
+
+
+<img width="830" alt="202154263-42277b1d-b032-494f-a853-373f34d4f78a" src="https://user-images.githubusercontent.com/118787327/215102077-f74ade7f-d5b5-430f-8089-5249fa45e8e1.png">
 
 
 
 ### RESULTS 
+
+
+Therefore PISO,PIPO,PISO are implemented succesfully using verilog and validated their functionality using their functional tables.
